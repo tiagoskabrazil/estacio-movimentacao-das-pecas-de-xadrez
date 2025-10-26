@@ -1,59 +1,101 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() {
-    // ------------------------------------------------------
-    // Simulação de movimento de peças de xadrez
-    // Peças: Torre, Bispo, Rainha, Cavalo
-    // Cada peça usa uma estrutura de repetição diferente
-    // ------------------------------------------------------
+// -------------------------------------------
+// Funções recursivas para movimentos de peças
+// -------------------------------------------
 
-    // Movimentação da Torre: 5 casas para a direita usando FOR
+// Torre: recursiva, movendo para a direita
+void moverTorre(int casas) {
+    if (casas <= 0) return; // condição de parada
+    printf("Direita\n");
+    moverTorre(casas - 1); // chamada recursiva
+}
+
+// Bispo: recursivo com loops aninhados (vertical -> horizontal)
+void moverBispo(int casasVertical, int casasHorizontal) {
+    if (casasVertical <= 0) return; // condição de parada externa
+
+    // Loop interno horizontal (movimento à direita)
+    for (int i = 0; i < casasHorizontal; i++) {
+        printf("Cima, Direita\n");
+    }
+
+    // Chamada recursiva para o próximo movimento vertical
+    moverBispo(casasVertical - 1, casasHorizontal);
+}
+
+// Rainha: recursiva, movendo para a esquerda
+void moverRainha(int casas) {
+    if (casas <= 0) return; // condição de parada
+    printf("Esquerda\n");
+    moverRainha(casas - 1); // chamada recursiva
+}
+
+// -------------------------------------------
+// Função para o movimento do Cavalo
+// Loops complexos com múltiplas variáveis e condições
+// Cavalo move em "L": 2 casas para cima + 1 casa para direita
+// -------------------------------------------
+void moverCavalo(int movimentosL) {
+    int vertical, horizontal;
+
+    for (int m = 0; m < movimentosL; m++) { // loop externo para repetir movimentos "L"
+        vertical = 0;
+        horizontal = 0;
+
+        while (1) { // loop interno controlando o "L"
+            if (vertical < 2) {
+                printf("Cima\n"); // mover para cima
+                vertical++;
+                continue; // continuar subindo até 2 casas
+            }
+
+            if (horizontal < 1) {
+                printf("Direita\n"); // mover para a direita
+                horizontal++;
+                break; // movimento "L" concluído
+            }
+        }
+    }
+}
+
+// -------------------------------------------
+// Função principal
+// -------------------------------------------
+int main() {
+    // -------------------------------------------
+    // Movimento da Torre
+    // -------------------------------------------
     int casasTorre = 5;
     printf("Movimento da Torre (5 casas para a direita):\n");
-    for (int i = 0; i < casasTorre; i++) {
-        printf("Direita\n");
-    }
+    moverTorre(casasTorre);
     printf("\n");
 
-    // Movimentação do Bispo: 5 casas na diagonal (Cima, Direita) usando WHILE
-    int casasBispo = 5;
-    int contadorBispo = 0;
+    // -------------------------------------------
+    // Movimento do Bispo
+    // -------------------------------------------
+    int casasBispoVertical = 5;
+    int casasBispoHorizontal = 1; // uma casa à direita por movimento vertical
     printf("Movimento do Bispo (5 casas diagonal Cima-Direita):\n");
-    while (contadorBispo < casasBispo) {
-        printf("Cima, Direita\n");
-        contadorBispo++;
-    }
+    moverBispo(casasBispoVertical, casasBispoHorizontal);
     printf("\n");
 
-    // Movimentação da Rainha: 8 casas para a esquerda usando DO-WHILE
+    // -------------------------------------------
+    // Movimento da Rainha
+    // -------------------------------------------
     int casasRainha = 8;
-    int contadorRainha = 0;
     printf("Movimento da Rainha (8 casas para a esquerda):\n");
-    do {
-        printf("Esquerda\n");
-        contadorRainha++;
-    } while (contadorRainha < casasRainha);
+    moverRainha(casasRainha);
     printf("\n");
 
-    // Movimentação do Cavalo: Movimento em "L" (2 casas para baixo e 1 para a esquerda)
-    // Usando loops aninhados: FOR dentro de WHILE
-    int movimentosCavaloBaixo = 2; // 2 casas para baixo
-    int movimentosCavaloEsquerda = 1; // 1 casa para esquerda
-    int contadorCavalo = 0;
-
-    printf("Movimento do Cavalo (em L: 2 casas para baixo, 1 para esquerda):\n");
-    while (contadorCavalo < 1) { // loop externo para realizar o movimento completo do "L"
-        // Primeiro, mover 2 casas para baixo usando FOR
-        for (int i = 0; i < movimentosCavaloBaixo; i++) {
-            printf("Baixo\n");
-        }
-        // Depois, mover 1 casa para a esquerda usando FOR
-        for (int i = 0; i < movimentosCavaloEsquerda; i++) {
-            printf("Esquerda\n");
-        }
-        contadorCavalo++;
-    }
+    // -------------------------------------------
+    // Movimento do Cavalo
+    // -------------------------------------------
+    int movimentosCavaloL = 1; // número de movimentos em "L" a realizar
+    printf("Movimento do Cavalo (em L: 2 casas para cima, 1 para direita):\n");
+    moverCavalo(movimentosCavaloL);
+    printf("\n");
 
     return 0;
 }
