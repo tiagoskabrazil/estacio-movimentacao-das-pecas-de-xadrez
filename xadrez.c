@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
     // ------------------------------------------------------
     // Simulação de movimento de peças de xadrez
-    // Peças: Torre, Bispo, Rainha
+    // Peças: Torre, Bispo, Rainha, Cavalo
     // Cada peça usa uma estrutura de repetição diferente
     // ------------------------------------------------------
 
@@ -33,6 +34,26 @@ int main() {
         printf("Esquerda\n");
         contadorRainha++;
     } while (contadorRainha < casasRainha);
+    printf("\n");
+
+    // Movimentação do Cavalo: Movimento em "L" (2 casas para baixo e 1 para a esquerda)
+    // Usando loops aninhados: FOR dentro de WHILE
+    int movimentosCavaloBaixo = 2; // 2 casas para baixo
+    int movimentosCavaloEsquerda = 1; // 1 casa para esquerda
+    int contadorCavalo = 0;
+
+    printf("Movimento do Cavalo (em L: 2 casas para baixo, 1 para esquerda):\n");
+    while (contadorCavalo < 1) { // loop externo para realizar o movimento completo do "L"
+        // Primeiro, mover 2 casas para baixo usando FOR
+        for (int i = 0; i < movimentosCavaloBaixo; i++) {
+            printf("Baixo\n");
+        }
+        // Depois, mover 1 casa para a esquerda usando FOR
+        for (int i = 0; i < movimentosCavaloEsquerda; i++) {
+            printf("Esquerda\n");
+        }
+        contadorCavalo++;
+    }
 
     return 0;
 }
